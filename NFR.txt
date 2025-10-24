@@ -25,18 +25,7 @@ Tone:
  - Test cases should be easier to read
 
 
-Through API
 
-{
-    "model": "llama-3.3-70b-versatile",
-  "messages": [
-    {
- "role": "user",  
-      "content": "Act as a performance test architect,Generate Performance testcases for the below user story.- User Story: As a shopper, I want the productpage to load within 3 seconds so that I can quickly view product details and make purchasing decisions.-Acceptance Criteria:The product page must load within 3 seconds for 95% of users.The system must maintain this performance under a load of 500 concurrent users.The error rate during peak load must not exceed 1%"
-    }
-]
-}
-]
-}
+
 
 
