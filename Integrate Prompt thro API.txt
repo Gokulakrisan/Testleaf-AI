@@ -1,0 +1,54 @@
+Homework Assignment 2:
+
+Integrate the prompt to your API (using postman) and confirm the response (json)
+
+Objective: You can integrate prompt + LLM API
+
+
+{
+    "model": "llama-3.3-70b-versatile",
+  "messages": [
+    {
+ "role": "user",  
+      "content": "Act as a performance test architect,Generate Performance testcases for the below user story.- User Story: As a shopper, I want the productpage to load within 3 seconds so that I can quickly view product details and make purchasing decisions.-Acceptance Criteria:The product page must load within 3 seconds for 95% of users.The system must maintain this performance under a load of 500 concurrent users.The error rate during peak load must not exceed 1%"
+    }
+]
+}
+]
+}
+
+
+Response Received
+
+{
+    "id": "chatcmpl-45a329d8-d3eb-46ed-8879-4630aa307c57",
+    "object": "chat.completion",
+    "created": 1761309913,
+    "model": "llama-3.3-70b-versatile",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "As a performance test architect, I'll create a comprehensive set of performance test cases to validate the user story. Here are the test cases:\n\n**Test Case 1: Product Page Load Time**\n\n* **Test Description:** Measure the average load time of the product page under normal conditions.\n* **Test Steps:**\n\t1. Launch the application with a single user.\n\t2. Navigate to a product page.\n\t3. Measure the load time of the product page (from request to full page load).\n\t4. Repeat steps 2-3 for a minimum of 10 iterations.\n* **Expected Result:** The average load time of the product page is less than 3 seconds.\n* **Acceptance Criteria:** The average load time is <= 3 seconds for 95% of iterations.\n\n**Test Case 2: Product Page Load Time under Load**\n\n* **Test Description:** Measure the average load time of the product page under a load of 500 concurrent users.\n* **Test Steps:**\n\t1. Launch the application with 500 concurrent users.\n\t2. Navigate each user to a product page.\n\t3. Measure the load time of the product page (from request to full page load) for each user.\n\t4. Repeat steps 2-3 for a minimum of 10 iterations.\n* **Expected Result:** The average load time of the product page is less than 3 seconds under load.\n* **Acceptance Criteria:** The average load time is <= 3 seconds for 95% of iterations.\n\n**Test Case 3: Error Rate under Peak Load**\n\n* **Test Description:** Measure the error rate of the product page under a load of 500 concurrent users.\n* **Test Steps:**\n\t1. Launch the application with 500 concurrent users.\n\t2. Navigate each user to a product page.\n\t3. Measure the number of errors (e.g., HTTP errors, application errors) for each user.\n\t4. Calculate the error rate as a percentage of total requests.\n\t5. Repeat steps 2-4 for a minimum of 10 iterations.\n* **Expected Result:** The error rate is less than 1% under peak load.\n* **Acceptance Criteria:** The error rate is <= 1% for 95% of iterations.\n\n**Test Case 4: Load Time Distribution**\n\n* **Test Description:** Measure the distribution of load times for the product page under a load of 500 concurrent users.\n* **Test Steps:**\n\t1. Launch the application with 500 concurrent users.\n\t2. Navigate each user to a product page.\n\t3. Measure the load time of the product page (from request to full page load) for each user.\n\t4. Calculate the distribution of load times (e.g., 25th percentile, 50th percentile, 95th percentile).\n\t5. Repeat steps 2-4 for a minimum of 10 iterations.\n* **Expected Result:** The 95th percentile load time is less than 3 seconds.\n* **Acceptance Criteria:** The 95th percentile load time is <= 3 seconds.\n\n**Test Case 5: Resource Utilization**\n\n* **Test Description:** Measure the resource utilization (e.g., CPU, memory, network) of the system under a load of 500 concurrent users.\n* **Test Steps:**\n\t1. Launch the application with 500 concurrent users.\n\t2. Monitor the resource utilization of the system (e.g., CPU, memory, network).\n\t3. Measure the average and peak resource utilization.\n\t4. Repeat steps 2-3 for a minimum of 10 iterations.\n* **Expected Result:** The resource utilization is within acceptable limits (e.g., CPU < 80%, memory < 80%).\n* **Acceptance Criteria:** The resource utilization is within acceptable limits for 95% of iterations.\n\nThese test cases will help ensure that the product page loads within 3 seconds for 95% of users, maintains this performance under a load of 500 concurrent users, and has an error rate of less than 1% during peak load."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.037721267,
+        "prompt_tokens": 127,
+        "prompt_time": 0.006690143,
+        "completion_tokens": 838,
+        "completion_time": 1.61412711,
+        "total_tokens": 965,
+        "total_time": 1.620817253
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_4e7667efac",
+    "x_groq": {
+        "id": "req_01k8b40twgfs99qe21x8h8pe2p"
+    },
+    "service_tier": "on_demand"
+}
