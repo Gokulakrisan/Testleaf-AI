@@ -1,0 +1,186 @@
+Instruction:
+-Convert the Selenium java code to Playwright typescript
+-Make sure to provide comments for each method 
+
+
+Context:
+-Convert the code sample provided in the example
+
+Example:
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+public class LoginPageAutomation {
+
+    public static void main(String[] args) {
+        // Set the path to your ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/your/chromedriver.exe");
+
+        // Initialize the WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Navigate to the login page URL
+            driver.get("https://www.example.com/login"); // Replace with your actual login page URL
+
+            // Maximize the browser window (optional)
+            driver.manage().window().maximize();
+
+            // Explicit wait for elements to be visible
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+            // Locate username field and enter username
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username"))); // Or By.name, By.cssSelector, By.xpath
+            usernameField.sendKeys("your_username");
+
+            // Locate password field and enter password
+            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password"))); // Or By.name, By.cssSelector, By.xpath
+            passwordField.sendKeys("your_password");
+
+            // Locate login button and click it
+            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton"))); // Or By.name, By.cssSelector, By.xpath
+            loginButton.click();
+
+            // Optional: Verify successful login by checking for an element on the next page
+            // For example, checking for a "Welcome" message or a logout button
+            WebElement welcomeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(), 'Welcome')]")));
+            if (welcomeMessage.isDisplayed()) {
+                System.out.println("Login successful!");
+            } else {
+                System.out.println("Login failed!");
+            }
+
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        } finally {
+            // Close the browser
+            if (driver != null) {
+                driver.quit();
+            }
+        }
+    }
+}
+
+Persona : Act as a test automation engineer and review the playwright code 
+
+Output: Generate the output in standard format
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Response
+
+pages/loginPage.ts
+
+import { Page, expect } from "@playwright/test";
+
+/**
+ * LoginPage class represents the login page and its interactions.
+ * Implements reusable methods for entering credentials, performing login,
+ * and validating successful login actions.
+ */
+export class LoginPage {
+  readonly page: Page;
+
+  // Define locators for page elements
+  private usernameField = this.page.locator("#username");
+  private passwordField = this.page.locator("#password");
+  private loginButton = this.page.locator("#loginButton");
+  private welcomeMessage = this.page.locator("//h1[contains(text(), 'Welcome')]");
+
+  /**
+   * Initializes the page object with Playwright Page instance.
+   * @param page - The Playwright Page object used for browser interactions.
+   */
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  /**
+   * Navigates to the login page URL.
+   * @param url - The URL of the login page.
+   */
+  async navigateToLoginPage(url: string): Promise<void> {
+    await this.page.goto(url);
+    await this.page.waitForLoadState("domcontentloaded");
+    await this.page.setViewportSize({ width: 1280, height: 720 });
+    console.log(`Navigated to: ${url}`);
+  }
+
+  /**
+   * Enters the username in the username field.
+   * @param username - The username string to be entered.
+   */
+  async enterUsername(username: string): Promise<void> {
+    await this.usernameField.waitFor({ state: "visible" });
+    await this.usernameField.fill(username);
+    console.log(`Entered username: ${username}`);
+  }
+
+  /**
+   * Enters the password in the password field.
+   * @param password - The password string to be entered.
+   */
+  async enterPassword(password: string): Promise<void> {
+    await this.passwordField.waitFor({ state: "visible" });
+    await this.passwordField.fill(password);
+    console.log(`Entered password: ${password}`);
+  }
+
+  /**
+   * Clicks the login button to submit credentials.
+   */
+  async clickLoginButton(): Promise<void> {
+    await this.loginButton.waitFor({ state: "visible" });
+    await this.loginButton.click();
+    console.log("Clicked on the Login button.");
+  }
+
+  /**
+   * Validates whether the login was successful by checking for a welcome message.
+   */
+  async verifyLoginSuccess(): Promise<void> {
+    await this.welcomeMessage.waitFor({ state: "visible" });
+    const isDisplayed = await this.welcomeMessage.isVisible();
+    expect(isDisplayed).toBeTruthy();
+    console.log("Login successful - Welcome message is visible!");
+  }
+}
+
+
+tests/loginPage.spec.ts
+
+import { test } from "@playwright/test";
+import { LoginPage } from "../pages/loginPage";
+
+/**
+ * LoginPage Test
+ * This test automates the login process using Playwright,
+ * following the Page Object Model structure.
+ */
+test.describe("Login Page Automation", () => {
+  test("Validate successful login functionality", async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    // Step 1: Navigate to the login page
+    await loginPage.navigateToLoginPage("https://www.example.com/login");
+
+    // Step 2: Enter valid credentials
+    await loginPage.enterUsername("your_username");
+    await loginPage.enterPassword("your_password");
+
+    // Step 3: Click on the login button
+    await loginPage.clickLoginButton();
+
+    // Step 4: Verify successful login
+    await loginPage.verifyLoginSuccess();
+  });
+});
+
