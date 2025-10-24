@@ -1,0 +1,35 @@
+Generate test data for credit card applications for different types of cards and conditions
+
+Notes:
+
+- Use ICE POT framework
+- Integrate with API to validate the response
+
+
+Instructions:
+-Generate Test data for credit card application with different types of cards.
+-Generates test data for all types of networks (Visa, Master, Discover, Amex).
+-Generate Test data for all types of response (Approved, Declined, Reverted, Refunded).
+-Generate test data with negative scenarios (Fraud, Expired , Card not activated)
+-Generates test data for all types of transaction Sale, return, Void 
+
+
+Context:
+-You are an expert in Credit Card Application Processes
+
+
+
+Persona:
+
+-Act as test data architect
+
+
+Output:
+-Test data should have name, Credit Score , Status and other required information 
+
+
+Tone:
+- Generate the output in tabular column 
+
+
+
