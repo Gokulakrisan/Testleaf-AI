@@ -28,13 +28,12 @@ Tone:
 Through API
 
 {
+    "model": "llama-3.3-70b-versatile",
   "messages": [
     {
-      "role": "user",
-      "content": "Generate manual testcases for the below user story.Cover Positive Testcase.Cover Negative testcase.Cover edge cases.Follow the format ID, Test case Description, Steps, Actual Result, Expected Result when generating testcases. USER STORY: As a biller, I want to have a link in the side menu of the Alleva Billing application that opens the insights reporting tool, so that I can directly access the Billing folder within Insights without needing to navigate through multiple pages.ACCEPTANCE CRITERIA:A new menu item labeled Reports appears in the Billing application's left-side navigation menu, positioned above Settings.Clicking the Reports menu item opens a new tab and directs the user to the Billing folder within the Insights reporting tool.The link should retain any necessary authentication tokens or session context to allow direct access without requiring the user to log in again.The menu item is visible only to users with permission to access Insights. The iframe that is loaded should take user to dashboard https://alleva.looker.com/dashboards/3131"
+ "role": "user",  
+      "content": "Act as a performance test architect,Generate Performance testcases for the below user story.- User Story: As a shopper, I want the productpage to load within 3 seconds so that I can quickly view product details and make purchasing decisions.-Acceptance Criteria:The product page must load within 3 seconds for 95% of users.The system must maintain this performance under a load of 500 concurrent users.The error rate during peak load must not exceed 1%"
     }
-  ],
-  "model": "llama-3.3-70b-versatile",
-  "max_tokens": 500,
-  "top_p": 0.99
-  }
+]
+}
+
